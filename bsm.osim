@@ -1829,6 +1829,79 @@
                         </PhysicalOffsetFrame>
                     </components>
                 </Body>
+                <Body name="clavicle_r">
+                    <mass>0.156</mass>
+                    <mass_center>-0.02172 0.01007 0.06704</mass_center>
+                    <!-- OpenSim 4.x inertia is Vec6: Ixx Iyy Izz Ixy Ixz Iyz -->
+                    <inertia>6.4e-006 2.63e-005 2.43e-005 -6.7e-006 -9.5e-006 2.9e-006</inertia>
+
+                    <!-- Optional visualization (match BSM style). Only keep mesh if you actually have it -->
+                    <components>
+                        <PhysicalOffsetFrame name="clavicle_r_mesh_frame">
+                        <FrameGeometry name="frame_geometry">
+                            <socket_frame>..</socket_frame>
+                            <scale_factors>0.2 0.2 0.2</scale_factors>
+                        </FrameGeometry>
+
+                        <attached_geometry>
+                            <Mesh name="clavicle_r_geom">
+                            <socket_frame>..</socket_frame>
+                            <scale_factors>1 1 1</scale_factors>
+                            <Appearance>
+                                <visible>true</visible>
+                                <opacity>1</opacity>
+                                <color>1 1 1</color>
+                            </Appearance>
+                            <!-- If you only have clavicle.vtp, convert to .obj OR use a vtp-supported Geometry -->
+                            <mesh_file>clavicle_r.obj</mesh_file>
+                            </Mesh>
+                        </attached_geometry>
+
+                        <socket_parent>..</socket_parent>
+                        <translation>0 0 0</translation>
+                        <orientation>0 0 0</orientation>
+                        </PhysicalOffsetFrame>
+                    </components>
+                    </Body>
+
+                <!-- ===================== -->
+                <!-- Left clavicle BODY    -->
+                <!-- ===================== -->
+                <Body name="clavicle_l">
+                <mass>0.156</mass>
+                <mass_center>-0.02172 0.01007 0.06704</mass_center>
+                <!-- Vec6: Ixx Iyy Izz Ixy Ixz Iyz -->
+                <inertia>6.4e-006 2.63e-005 2.43e-005 -6.7e-006 -9.5e-006 2.9e-006</inertia>
+
+                <components>
+                    <PhysicalOffsetFrame name="clavicle_l_mesh_frame">
+                    <FrameGeometry name="frame_geometry">
+                        <socket_frame>..</socket_frame>
+                        <scale_factors>0.2 0.2 0.2</scale_factors>
+                    </FrameGeometry>
+
+                    <attached_geometry>
+                        <Mesh name="clavicle_l_geom">
+                        <socket_frame>..</socket_frame>
+                        <scale_factors>1 1 1</scale_factors>
+                        <Appearance>
+                            <visible>true</visible>
+                            <opacity>1</opacity>
+                            <color>1 1 1</color>
+                        </Appearance>
+                        <mesh_file>clavicle_l.obj</mesh_file>
+                        </Mesh>
+                    </attached_geometry>
+
+                    <socket_parent>..</socket_parent>
+                    <translation>0 0 0</translation>
+                    <orientation>0 0 0</orientation>
+                    </PhysicalOffsetFrame>
+                </components>
+                </Body>
+
+
+
                 <Body name="scapula_r">
                     <!--List of components that this component owns and serializes.-->
                     <components>
@@ -5205,330 +5278,582 @@
                         </PhysicalOffsetFrame>
                     </frames>
                 </ConstantCurvatureJoint>
-<EllipsoidJoint name="scapulothoracic_r">
-    <socket_parent_frame>thorax_r_offset</socket_parent_frame>
-    <socket_child_frame>scapula_r_st_offset</socket_child_frame>
-
-    <coordinates>
-        <Coordinate name="scapula_abduction_r">
-            <default_value>-1.31156113764349197</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-1.5 -0.9</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-        <Coordinate name="scapula_elevation_r">
-            <default_value>-0.050497870894562202</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-0.2 0.1</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-        <Coordinate name="scapula_upward_rot_r">
-            <default_value>0.20820491154386678</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-0.3 1.0</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-    </coordinates>
-
-    <frames>
-        <!-- Center of the thoracic ellipsoid (shared location for both sides) -->
-        <PhysicalOffsetFrame name="thorax_r_offset">
-            <FrameGeometry name="frame_geometry">
-                <socket_frame>..</socket_frame>
-                <scale_factors>0.2 0.2 0.2</scale_factors>
-            </FrameGeometry>
-            <socket_parent>/bodyset/thorax</socket_parent>
-            <!-- slightly inside the ribcage, no lateral offset -->
-            <translation>0.03 -0.03 0</translation>
-            <orientation>0 0 0</orientation>
-        </PhysicalOffsetFrame>
-
-        <!-- Right scapula contact point on ellipsoid -->
-        <PhysicalOffsetFrame name="scapula_r_st_offset">
-            <FrameGeometry name="frame_geometry">
-                <socket_frame>..</socket_frame>
-                <scale_factors>0.2 0.2 0.2</scale_factors>
-            </FrameGeometry>
-            <socket_parent>/bodyset/scapula_r</socket_parent>
-            <!-- small posterior + lateral offset, no crazy rotation -->
-            <translation>-0.02 0.02 -0.04</translation>
-            <orientation>0 0 0</orientation>
-        </PhysicalOffsetFrame>
-    </frames>
-
-    <radii_x_y_z>0.0829975 0.199991 0.083001</radii_x_y_z>
-</EllipsoidJoint>
-
-<EllipsoidJoint name="scapulothoracic_l">
-    <socket_parent_frame>thorax_l_offset</socket_parent_frame>
-    <socket_child_frame>scapula_l_st_offset</socket_child_frame>
-
-    <coordinates>
-        <Coordinate name="scapula_abduction_l">
-            <default_value>-1.31156113764349197</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-1.5 -0.9</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-        <Coordinate name="scapula_elevation_l">
-            <default_value>-0.050497870894562202</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-0.2 0.1</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-        <Coordinate name="scapula_upward_rot_l">
-            <default_value>0.20820491154386678</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-0.3 1.0</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-    </coordinates>
-
-    <frames>
-        <!-- Same ellipsoid center as right side -->
-        <PhysicalOffsetFrame name="thorax_l_offset">
-            <FrameGeometry name="frame_geometry">
-                <socket_frame>..</socket_frame>
-                <scale_factors>0.2 0.2 0.2</scale_factors>
-            </FrameGeometry>
-            <socket_parent>/bodyset/thorax</socket_parent>
-            <translation>0.03 -0.03 0</translation>
-            <orientation>0 0 0</orientation>
-        </PhysicalOffsetFrame>
-
-        <!-- Left scapula contact point on ellipsoid -->
-        <PhysicalOffsetFrame name="scapula_l_st_offset">
-            <FrameGeometry name="frame_geometry">
-                <socket_frame>..</socket_frame>
-                <scale_factors>0.2 0.2 0.2</scale_factors>
-            </FrameGeometry>
-            <socket_parent>/bodyset/scapula_l</socket_parent>
-            <!-- mirrored posterior + lateral offset -->
-            <translation>-0.02 0.02 0.04</translation>
-            <orientation>0 0 0</orientation>
-        </PhysicalOffsetFrame>
-    </frames>
-
-    <radii_x_y_z>0.0829975 0.199991 0.083001</radii_x_y_z>
-</EllipsoidJoint>
 
 
-<CustomJoint name="GlenoHumeral_r">
-    <!-- clean parent/child frames -->
-    <socket_parent_frame>scapula_r_gh_frame</socket_parent_frame>
-    <socket_child_frame>humerus_r_gh_frame</socket_child_frame>
 
-    <coordinates>
-        <Coordinate name="shoulder_r_x">
-            <!-- neutral default -->
-            <default_value>0.0</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-1.5 3.14159265</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-        <Coordinate name="shoulder_r_y">
-            <default_value>0.0</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-0.78 2.53</range>
-            <clamped>false</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-        <Coordinate name="shoulder_r_z">
-            <!-- arm down ≈ -90° around Z if you want; start with 0 for now -->
-            <default_value>0.0</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-1.570795 1.570795</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-    </coordinates>
+<CustomJoint name="sternoclavicular_r">
+  <socket_parent_frame>thorax_sc_r_frame</socket_parent_frame>
+  <socket_child_frame>clavicle_sc_r_frame</socket_child_frame>
 
-    <frames>
-        <!-- Parent frame: near the glenoid on the scapula, small offset, no rotation -->
-        <PhysicalOffsetFrame name="scapula_r_gh_frame">
-            <FrameGeometry name="frame_geometry">
-                <socket_frame>..</socket_frame>
-                <scale_factors>0.2 0.2 0.2</scale_factors>
-            </FrameGeometry>
-            <socket_parent>/bodyset/scapula_r</socket_parent>
-            <!-- approx: lateral (+X), slightly inferior (-Y), slightly anterior (+Z) -->
-            <translation>0.025 -0.015 0.01</translation>
-            <orientation>0 0 0</orientation>
-        </PhysicalOffsetFrame>
+  <coordinates>
+    <Coordinate name="clav_prot_r">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.78539816339 0.78539816339</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
 
-        <!-- Child frame: humerus attached at its proximal head, no extra offset -->
-        <PhysicalOffsetFrame name="humerus_r_gh_frame">
-            <FrameGeometry name="frame_geometry">
-                <socket_frame>..</socket_frame>
-                <scale_factors>0.2 0.2 0.2</scale_factors>
-            </FrameGeometry>
-            <socket_parent>/bodyset/humerus_r</socket_parent>
-            <translation>0 0 0</translation>
-            <orientation>0 0 0</orientation>
-        </PhysicalOffsetFrame>
-    </frames>
+    <Coordinate name="clav_elev_r">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.78539816339 0.78539816339</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+  </coordinates>
 
-    <SpatialTransform>
-        <TransformAxis name="rotation1">
-            <coordinates>shoulder_r_x</coordinates>
-            <axis>1 0 0</axis>
-            <LinearFunction name="function">
-                <coefficients> 1 0</coefficients>
-            </LinearFunction>
-        </TransformAxis>
-        <TransformAxis name="rotation2">
-            <coordinates>shoulder_r_y</coordinates>
-            <axis>0 1 0</axis>
-            <LinearFunction name="function">
-                <coefficients> 1 0</coefficients>
-            </LinearFunction>
-        </TransformAxis>
-        <TransformAxis name="rotation3">
-            <coordinates>shoulder_r_z</coordinates>
-            <axis>0 0 1</axis>
-            <LinearFunction name="function">
-                <coefficients> 1 0</coefficients>
-            </LinearFunction>
-        </TransformAxis>
-        <TransformAxis name="translation1">
-            <coordinates/>
-            <axis>1 0 0</axis>
-            <Constant><value>0</value></Constant>
-        </TransformAxis>
-        <TransformAxis name="translation2">
-            <coordinates/>
-            <axis>0 1 0</axis>
-            <Constant><value>0</value></Constant>
-        </TransformAxis>
-        <TransformAxis name="translation3">
-            <coordinates/>
-            <axis>0 0 1</axis>
-            <Constant><value>0</value></Constant>
-        </TransformAxis>
-    </SpatialTransform>
+  <frames>
+    <PhysicalOffsetFrame name="thorax_sc_r_frame">
+      <FrameGeometry name="frame_geometry">
+        <socket_frame>..</socket_frame>
+        <scale_factors>0.2 0.2 0.2</scale_factors>
+      </FrameGeometry>
+      <socket_parent>/bodyset/thorax</socket_parent>
+      <!-- Ajay location_in_parent -->
+      <translation>0.006325 0.00693 0.025465</translation>
+      <orientation>0 0 0</orientation>
+    </PhysicalOffsetFrame>
+
+    <PhysicalOffsetFrame name="clavicle_sc_r_frame">
+      <FrameGeometry name="frame_geometry">
+        <socket_frame>..</socket_frame>
+        <scale_factors>0.2 0.2 0.2</scale_factors>
+      </FrameGeometry>
+      <socket_parent>/bodyset/clavicle_r</socket_parent>
+      <translation>0 0 0</translation>
+      <orientation>0 0 0</orientation>
+    </PhysicalOffsetFrame>
+  </frames>
+
+  <SpatialTransform>
+    <TransformAxis name="rotation1">
+      <coordinates>clav_prot_r</coordinates>
+      <axis>0.0153 0.9892987 -0.14509996</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="rotation2">
+      <coordinates>clav_elev_r</coordinates>
+      <axis>-0.99447254 0 -0.10499695</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="rotation3">
+      <coordinates/>
+      <axis>-0.0292 0.0202 0.1201</axis>
+      <Constant><value>0</value></Constant>
+    </TransformAxis>
+
+    <TransformAxis name="translation1"><coordinates/><axis>1 0 0</axis><Constant><value>0</value></Constant></TransformAxis>
+    <TransformAxis name="translation2"><coordinates/><axis>0 1 0</axis><Constant><value>0</value></Constant></TransformAxis>
+    <TransformAxis name="translation3"><coordinates/><axis>0 0 1</axis><Constant><value>0</value></Constant></TransformAxis>
+  </SpatialTransform>
 </CustomJoint>
 
 
+
+
+<!-- ===================== -->
+<!-- Left SC JOINT         -->
+<!-- ===================== -->
+<CustomJoint name="sternoclavicular_l">
+  <socket_parent_frame>thorax_sc_l_frame</socket_parent_frame>
+  <socket_child_frame>clavicle_sc_l_frame</socket_child_frame>
+
+  <coordinates>
+    <Coordinate name="clav_prot_l">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.78539816339 0.78539816339</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <Coordinate name="clav_elev_l">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.78539816339 0.78539816339</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+  </coordinates>
+
+  <frames>
+    <PhysicalOffsetFrame name="thorax_sc_l_frame">
+      <FrameGeometry name="frame_geometry">
+        <socket_frame>..</socket_frame>
+        <scale_factors>0.2 0.2 0.2</scale_factors>
+      </FrameGeometry>
+      <socket_parent>/bodyset/thorax</socket_parent>
+      <!-- Start by copying Ajay right-side numbers; mirror later only if needed -->
+      <translation>0.006325 0.00693 0.025465</translation>
+      <orientation>0 0 0</orientation>
+    </PhysicalOffsetFrame>
+
+    <PhysicalOffsetFrame name="clavicle_sc_l_frame">
+      <FrameGeometry name="frame_geometry">
+        <socket_frame>..</socket_frame>
+        <scale_factors>0.2 0.2 0.2</scale_factors>
+      </FrameGeometry>
+      <socket_parent>/bodyset/clavicle_l</socket_parent>
+      <translation>0 0 0</translation>
+      <orientation>0 0 0</orientation>
+    </PhysicalOffsetFrame>
+  </frames>
+
+  <SpatialTransform>
+    <TransformAxis name="rotation1">
+      <coordinates>clav_prot_l</coordinates>
+      <!-- Start with same axis; mirror later only if the sign is wrong in motion -->
+      <axis>0.0153 0.9892987 -0.14509996</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="rotation2">
+      <coordinates>clav_elev_l</coordinates>
+      <axis>-0.99447254 0 -0.10499695</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="rotation3">
+      <coordinates/>
+      <axis>-0.0292 0.0202 0.1201</axis>
+      <Constant><value>0</value></Constant>
+    </TransformAxis>
+
+    <TransformAxis name="translation1"><coordinates/><axis>1 0 0</axis><Constant><value>0</value></Constant></TransformAxis>
+    <TransformAxis name="translation2"><coordinates/><axis>0 1 0</axis><Constant><value>0</value></Constant></TransformAxis>
+    <TransformAxis name="translation3"><coordinates/><axis>0 0 1</axis><Constant><value>0</value></Constant></TransformAxis>
+  </SpatialTransform>
+</CustomJoint>
+
+<!-- ========================= -->
+<!-- Scapulothoracic (RIGHT)   -->
+<!-- ========================= -->
+<ScapulothoracicJoint name="scapulothoracic_r">
+
+  <!-- Parent/child frames (modern OpenSim sockets) -->
+  <socket_parent_frame>thorax_r_st_frame</socket_parent_frame>
+  <socket_child_frame>scapula_r_st_frame</socket_child_frame>
+
+  <!-- Coordinates -->
+  <coordinates>
+    <Coordinate name="scapula_abduction_r">
+      <default_value>-1.31156113764349197</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-1.5 -0.9</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <Coordinate name="scapula_elevation_r">
+      <default_value>-0.050497870894562202</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.2 0.1</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <Coordinate name="scapula_upward_rot_r">
+      <default_value>0.20820491154386678</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.3 1.0</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <!-- OPTIONAL (add later once 3DOF works)-->
+
+    <Coordinate name="scapula_winging_r">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.78539816339 0.78539816339</range>
+      <clamped>false</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+    
+  </coordinates>
+
+  <!-- Frames owned by this joint (modern equivalent of location_in_parent/location) -->
+  <frames>
+    <!-- Parent-side frame on thorax (ellipsoid center) -->
+   <PhysicalOffsetFrame name="thorax_r_st_frame">
+  <FrameGeometry name="frame_geometry">
+    <socket_frame>..</socket_frame>
+    <scale_factors>0.2 0.2 0.2</scale_factors>
+  </FrameGeometry>
+  <socket_parent>/bodyset/thorax</socket_parent>
+
+  <!-- Ajay: location_in_parent -->
+  <translation>-0.02 -0.0173 0.07</translation>
+
+  <!-- Ajay: orientation_in_parent -->
+  <orientation>0 -0.87 0</orientation>
+</PhysicalOffsetFrame>
+
+
+    <!-- Child-side frame on scapula (contact point) -->
+    <PhysicalOffsetFrame name="scapula_r_st_frame">
+  <FrameGeometry name="frame_geometry">
+    <socket_frame>..</socket_frame>
+    <scale_factors>0.2 0.2 0.2</scale_factors>
+  </FrameGeometry>
+  <socket_parent>/bodyset/scapula_r</socket_parent>
+
+  <!-- Ajay: location -->
+  <translation>-0.05982 -0.03904 -0.056</translation>
+
+  <!-- Ajay: orientation -->
+  <orientation>-0.5181 -1.1416 -0.2854</orientation>
+</PhysicalOffsetFrame>
+
+  </frames>
+
+  <reverse>false</reverse>
+
+  <!-- Ellipsoid geometry -->
+  <thoracic_ellipsoid_radii_x_y_z>0.0829975 0.199991 0.083001</thoracic_ellipsoid_radii_x_y_z>
+
+  <!-- Only needed if winging is enabled -->
+  <scapula_winging_axis_origin>0 0</scapula_winging_axis_origin>
+  <scapula_winging_axis_direction>0</scapula_winging_axis_direction>
+
+</ScapulothoracicJoint>
+
+
+<!-- ========================= -->
+<!-- Scapulothoracic (LEFT)    -->
+<!-- ========================= -->
+<ScapulothoracicJoint name="scapulothoracic_l">
+
+  <socket_parent_frame>thorax_l_st_frame</socket_parent_frame>
+  <socket_child_frame>scapula_l_st_frame</socket_child_frame>
+
+  <coordinates>
+    <Coordinate name="scapula_abduction_l">
+      <default_value>-1.31156113764349197</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-1.5 -0.9</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <Coordinate name="scapula_elevation_l">
+      <default_value>-0.050497870894562202</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.2 0.1</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <Coordinate name="scapula_upward_rot_l">
+      <default_value>0.20820491154386678</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.3 1.0</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <!-- OPTIONAL (add later once 3DOF works)  -->
+    <Coordinate name="scapula_winging_l">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-0.78539816339 0.78539816339</range>
+      <clamped>false</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+  
+  </coordinates>
+
+  <frames>
+   <PhysicalOffsetFrame name="thorax_l_st_frame">
+  <FrameGeometry name="frame_geometry">
+    <socket_frame>..</socket_frame>
+    <scale_factors>0.2 0.2 0.2</scale_factors>
+  </FrameGeometry>
+  <socket_parent>/bodyset/thorax</socket_parent>
+
+  <!-- Ajay location_in_parent mirrored in X -->
+  <translation>0.02 -0.0173 0.07</translation>
+
+  <!-- Ajay orientation_in_parent (keep same for first pass) -->
+  <orientation>0 -0.87 0</orientation>
+</PhysicalOffsetFrame>
+
+<PhysicalOffsetFrame name="scapula_l_st_frame">
+  <FrameGeometry name="frame_geometry">
+    <socket_frame>..</socket_frame>
+    <scale_factors>0.2 0.2 0.2</scale_factors>
+  </FrameGeometry>
+  <socket_parent>/bodyset/scapula_l</socket_parent>
+
+  <!-- Ajay location mirrored in X -->
+  <translation>0.05982 -0.03904 -0.056</translation>
+
+  <!-- Ajay orientation (keep same for first pass) -->
+  <orientation>-0.5181 -1.1416 -0.2854</orientation>
+</PhysicalOffsetFrame>
+
+  </frames>
+
+  <reverse>false</reverse>
+
+  <thoracic_ellipsoid_radii_x_y_z>0.0829975 0.199991 0.083001</thoracic_ellipsoid_radii_x_y_z>
+
+  <scapula_winging_axis_origin>0 0</scapula_winging_axis_origin>
+  <scapula_winging_axis_direction>0</scapula_winging_axis_direction>
+
+</ScapulothoracicJoint>
+
+<!-- ========================================================= -->
+<!--  Ajay-style Glenohumeral CustomJoints (OpenSim 4.x format) -->
+<!--  Right: GlenoHumeral_r                                     -->
+<!-- ========================================================= -->
+<CustomJoint name="GlenoHumeral_r">
+  <socket_parent_frame>scapula_r_gh_frame</socket_parent_frame>
+  <socket_child_frame>humerus_r_gh_frame</socket_child_frame>
+
+  <coordinates>
+    <Coordinate name="shoulder_elv_r">
+      <default_value>0.17453292519</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-1.57079632679 2.53</range>
+      <clamped>false</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <Coordinate name="plane_of_elev_r">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-1.57079632679 3.14159265</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+
+    <Coordinate name="axial_rot_r">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-3.14159265 3.14159265</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+  </coordinates>
+
+  <frames>
+    <!-- Parent frame on scapula (Ajay location_in_parent) -->
+    <PhysicalOffsetFrame name="scapula_r_gh_frame">
+      <FrameGeometry name="frame_geometry">
+        <socket_frame>..</socket_frame>
+        <scale_factors>0.2 0.2 0.2</scale_factors>
+      </FrameGeometry>
+      <socket_parent>/bodyset/scapula_r</socket_parent>
+      <translation>-0.00955 -0.034 0.009</translation>
+      <orientation>0 0 0</orientation>
+    </PhysicalOffsetFrame>
+
+    <!-- Child frame on humerus -->
+    <PhysicalOffsetFrame name="humerus_r_gh_frame">
+      <FrameGeometry name="frame_geometry">
+        <socket_frame>..</socket_frame>
+        <scale_factors>0.2 0.2 0.2</scale_factors>
+      </FrameGeometry>
+      <socket_parent>/bodyset/humerus_r</socket_parent>
+      <translation>0 0 0</translation>
+      <orientation>0 0 0</orientation>
+    </PhysicalOffsetFrame>
+  </frames>
+
+  <SpatialTransform>
+    <TransformAxis name="rotation1">
+      <coordinates>shoulder_elv_r</coordinates>
+      <axis>-0.993 -0.0793 0.0879</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="rotation2">
+      <coordinates>plane_of_elev_r</coordinates>
+      <axis>0.0828 0.0654 0.9944</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="rotation3">
+      <coordinates>axial_rot_r</coordinates>
+      <axis>-0.0846 0.9947 -0.0584</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="translation1">
+      <coordinates/>
+      <axis>1 0 0</axis>
+      <Constant><value>0</value></Constant>
+    </TransformAxis>
+    <TransformAxis name="translation2">
+      <coordinates/>
+      <axis>0 1 0</axis>
+      <Constant><value>0</value></Constant>
+    </TransformAxis>
+    <TransformAxis name="translation3">
+      <coordinates/>
+      <axis>0 0 1</axis>
+      <Constant><value>0</value></Constant>
+    </TransformAxis>
+  </SpatialTransform>
+</CustomJoint>
+
+
+<!-- ========================================================= -->
+<!--  Left: GlenoHumeral_l (mirrored version)                   -->
+<!--  NOTE: translation X is mirrored; axes are mirrored by      -->
+<!--        flipping Z signs (common mirror convention).         -->
+<!-- ========================================================= -->
 <CustomJoint name="GlenoHumeral_l">
-    <socket_parent_frame>scapula_l_gh_frame</socket_parent_frame>
-    <socket_child_frame>humerus_l_gh_frame</socket_child_frame>
+  <socket_parent_frame>scapula_l_gh_frame</socket_parent_frame>
+  <socket_child_frame>humerus_l_gh_frame</socket_child_frame>
 
-    <coordinates>
-        <Coordinate name="shoulder_l_x">
-            <default_value>0.0</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-1.5 3.14159265</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-        <Coordinate name="shoulder_l_y">
-            <default_value>0.0</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-0.78 2.53</range>
-            <clamped>false</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-        <Coordinate name="shoulder_l_z">
-            <default_value>0.0</default_value>
-            <default_speed_value>0</default_speed_value>
-            <range>-1.570795 1.570795</range>
-            <clamped>true</clamped>
-            <locked>false</locked>
-            <prescribed_function/>
-            <prescribed>false</prescribed>
-        </Coordinate>
-    </coordinates>
+  <coordinates>
+    <Coordinate name="shoulder_elv_l">
+      <default_value>0.17453292519</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-1.57079632679 2.53</range>
+      <clamped>false</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
 
-    <frames>
-        <PhysicalOffsetFrame name="scapula_l_gh_frame">
-            <FrameGeometry name="frame_geometry">
-                <socket_frame>..</socket_frame>
-                <scale_factors>0.2 0.2 0.2</scale_factors>
-            </FrameGeometry>
-            <socket_parent>/bodyset/scapula_l</socket_parent>
-            <!-- mirror: lateral (+X), inferior (-Y), posterior (-Z) -->
-            <translation>0.025 -0.015 -0.01</translation>
-            <orientation>0 0 0</orientation>
-        </PhysicalOffsetFrame>
+    <Coordinate name="plane_of_elev_l">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-1.57079632679 3.14159265</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
 
-        <PhysicalOffsetFrame name="humerus_l_gh_frame">
-            <FrameGeometry name="frame_geometry">
-                <socket_frame>..</socket_frame>
-                <scale_factors>0.2 0.2 0.2</scale_factors>
-            </FrameGeometry>
-            <socket_parent>/bodyset/humerus_l</socket_parent>
-            <translation>0 0 0</translation>
-            <orientation>0 0 0</orientation>
-        </PhysicalOffsetFrame>
-    </frames>
+    <Coordinate name="axial_rot_l">
+      <default_value>0</default_value>
+      <default_speed_value>0</default_speed_value>
+      <range>-3.14159265 3.14159265</range>
+      <clamped>true</clamped>
+      <locked>false</locked>
+      <prescribed_function/>
+      <prescribed>false</prescribed>
+    </Coordinate>
+  </coordinates>
 
-    <SpatialTransform>
-        <TransformAxis name="rotation1">
-            <coordinates>shoulder_l_x</coordinates>
-            <axis>1 0 0</axis>
-            <LinearFunction name="function">
-                <coefficients> 1 0</coefficients>
-            </LinearFunction>
-        </TransformAxis>
-        <TransformAxis name="rotation2">
-            <coordinates>shoulder_l_y</coordinates>
-            <axis>0 1 0</axis>
-            <LinearFunction name="function">
-                <coefficients> 1 0</coefficients>
-            </LinearFunction>
-        </TransformAxis>
-        <TransformAxis name="rotation3">
-            <coordinates>shoulder_l_z</coordinates>
-            <axis>0 0 1</axis>
-            <LinearFunction name="function">
-                <coefficients> 1 0</coefficients>
-            </LinearFunction>
-        </TransformAxis>
-        <TransformAxis name="translation1">
-            <coordinates/>
-            <axis>1 0 0</axis>
-            <Constant><value>0</value></Constant>
-        </TransformAxis>
-        <TransformAxis name="translation2">
-            <coordinates/>
-            <axis>0 1 0</axis>
-            <Constant><value>0</value></Constant>
-        </TransformAxis>
-        <TransformAxis name="translation3">
-            <coordinates/>
-            <axis>0 0 1</axis>
-            <Constant><value>0</value></Constant>
-        </TransformAxis>
-    </SpatialTransform>
+  <frames>
+    <!-- Parent frame on left scapula (mirror of Ajay location_in_parent) -->
+    <PhysicalOffsetFrame name="scapula_l_gh_frame">
+      <FrameGeometry name="frame_geometry">
+        <socket_frame>..</socket_frame>
+        <scale_factors>0.2 0.2 0.2</scale_factors>
+      </FrameGeometry>
+      <socket_parent>/bodyset/scapula_l</socket_parent>
+      <!-- mirror X -->
+      <translation>0.00955 -0.034 0.009</translation>
+      <orientation>0 0 0</orientation>
+    </PhysicalOffsetFrame>
+
+    <!-- Child frame on left humerus -->
+    <PhysicalOffsetFrame name="humerus_l_gh_frame">
+      <FrameGeometry name="frame_geometry">
+        <socket_frame>..</socket_frame>
+        <scale_factors>0.2 0.2 0.2</scale_factors>
+      </FrameGeometry>
+      <socket_parent>/bodyset/humerus_l</socket_parent>
+      <translation>0 0 0</translation>
+      <orientation>0 0 0</orientation>
+    </PhysicalOffsetFrame>
+  </frames>
+
+  <SpatialTransform>
+    <!-- Mirror by flipping the Z component (typical left/right mirror in many OpenSim models) -->
+    <TransformAxis name="rotation1">
+      <coordinates>shoulder_elv_l</coordinates>
+      <axis>-0.993 -0.0793 -0.0879</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="rotation2">
+      <coordinates>plane_of_elev_l</coordinates>
+      <axis>0.0828 0.0654 -0.9944</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="rotation3">
+      <coordinates>axial_rot_l</coordinates>
+      <axis>-0.0846 0.9947 0.0584</axis>
+      <LinearFunction name="function">
+        <coefficients>1 0</coefficients>
+      </LinearFunction>
+    </TransformAxis>
+
+    <TransformAxis name="translation1">
+      <coordinates/>
+      <axis>1 0 0</axis>
+      <Constant><value>0</value></Constant>
+    </TransformAxis>
+    <TransformAxis name="translation2">
+      <coordinates/>
+      <axis>0 1 0</axis>
+      <Constant><value>0</value></Constant>
+    </TransformAxis>
+    <TransformAxis name="translation3">
+      <coordinates/>
+      <axis>0 0 1</axis>
+      <Constant><value>0</value></Constant>
+    </TransformAxis>
+  </SpatialTransform>
 </CustomJoint>
 
 
@@ -5866,7 +6191,7 @@
                         </PhysicalOffsetFrame>
                     </frames>
                     <!--Defines how the child body moves with respect to the parent as a function of the generalized coordinates.-->
-                    <SpatialTransform>
+                      <SpatialTransform>
                         <!--3 Axes for rotations are listed first.-->
                         <TransformAxis name="rotation1">
                             <!--Names of the coordinates that serve as the independent variables         of the transform function.-->
@@ -6356,6 +6681,7 @@
                 </CustomJoint>
             </objects>
         </JointSet>
+        
         <!--Controllers that provide the control inputs for Actuators.-->
         <ControllerSet name="controllerset">
             <objects/>
