@@ -5,13 +5,13 @@ Python/OpenSim translation of the AST scaling workflow. The main entry point is 
 ## Requirements
 
 - Windows with OpenSim Python available.
-- Recommended environment: `opensim45_py`.
+- Recommended environment: a Conda environment that contains an OpenSim installation.
 - Python packages used by the scripts: `numpy` and `opensim`.
 
 Example:
 
 ```powershell
-conda activate opensim45_py
+conda activate <your-opensim-conda-environment>
 python Main_AST_v1.py path\to\config.json
 ```
 
